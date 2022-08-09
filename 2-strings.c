@@ -14,7 +14,7 @@ void number_to_string(int number, int base, char *buf)
 
 	if (number < 0)
 	{
-		buf[0] = '-';
+		*buf++ = '-';
 		number *= -1;
 	}
 	if (number == 0)
@@ -30,13 +30,15 @@ void number_to_string(int number, int base, char *buf)
 		if (rem >= 10)
 			tmp[i++] = 'a' + (rem - 10);
 		else
+		{
 			tmp[i] = '0' + rem;
 			i++;
-
+		}
 		number /= base;
 	}
 	for (j = i - 1; j >= 0; j--)
 		*buf++ = tmp[j];
+
 	*buf = '\0';
 }
 
