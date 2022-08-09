@@ -44,8 +44,8 @@ int _vprintf(const char *format, va_list ap)
 			else
 			{
 				putchar(*format);
+				count++;
 			}
-			count++;
 		}
 		else
 		{
