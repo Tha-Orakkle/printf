@@ -1,69 +1,90 @@
-#include <stdio.h>
-#include <stdarg.h>
+#include "main.h"
 
-void _vprintf(const char *format, va_list ap);
-void _printf(const char *format, ...);
+/**
+ * _printf - produces output according to a format
+ * @format: string format
+ *
+ * Return: number of character printed
+ */
 
-int main(void)
+int _printf(const char *format, ...)
 {
-    char ch = 'G';
-    _printf("George is my partner\n");
-    _printf("George is a %c\n", ch);
-    _printf("%s\n", "Immaculate");
-    _printf("%% %s", "bhinjk");
-    return (0);
+	va_list ap;
+	int val;
+
+	va_start(ap, format);
+	if (format == NULL)
+		return (-1);
+	val = _vprintf(format, ap);
+	va_end(ap);
+	return (val);
 }
 
-void _printf(const char *format, ...)
+/**
+ * _vprintf - prints output according to format
+ * @format: string format
+ * @ap: variable argument
+ *
+ * Return: length of the characters printed
+ */
+
+int _vprintf(const char *format, va_list ap)
 {
-    //printf("the is a %s", "boy")
-    va_list ap;
-    va_start(ap, format);
-    //block of codes
-    _vprintf(format, ap);
-    va_end(ap);
+	int flag = 0;
+	char *str;
+	int count = 0;
+	char buffer[1024];
+
+	while (*format)
+	{
+		if (flag == 0)
+		{
+			if (*format == '%')
+				flag = 1;
+			else
+			{
+				putchar(*format);
+			}
+			count++;
+		}
+		else
+		{
+			switch (*format)
+			{
+				case 'c':
+				{
+					putchar(va_arg(ap, int));
+					count++;
+					break;
+				}
+				case 's':
+				{
+					str = va_arg(ap, char *);
+					print_string(str);
+					count++;
+					break;
+				}
+				case '%':
+					putchar('%');
+					count++;
+					break;
+				case 'd':
+				{
+					int n = va_arg(ap, int);
+
+					number_to_string(n, 10, buffer);
+					print_string(buffer);
+					count++;
+					break;
+				}
+
+				default:
+					break;
+			}
+			flag = 0;
+		}
+		format++;
+	}
+	return (count);
 }
 
-void _vprintf(const char *format, va_list ap)
-{
-    int flag = 0;
-    char *str;
-    while(*format)
-    {
-        if (flag == 0)
-        {
-            if (*format == '%')
-               flag = 1;
-            else
-               putchar(*format);
-        }
-        else
-        {
-            switch (*format)
-            {
-                case 'c':
-                
-                putchar(va_arg(ap, int));
-                break;
-                
-                case 's':
-                str = va_arg(ap, char *);
-                while(*str)
-                {
-                    putchar(*str++);
-                }
-                break;
-                case '%':
-                putchar('%');
-                break;
-       
-                
-                
-                default:
-                  break;
-            }
-            flag = 0;
-        }
-        *format++;
-    }
-}
