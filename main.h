@@ -2,8 +2,6 @@
 #define MAIN_H
 
 #include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 int _printf(const char *format, ...);
 void case_c(int count, va_list ap);
