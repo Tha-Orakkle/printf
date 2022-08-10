@@ -30,10 +30,7 @@ int _printf(const char *format, ...)
 
 int _vprintf(const char *format, va_list ap)
 {
-	int flag = 0;
-	char *str;
-	int count = 0;
-	char buffer[1024];
+	int flag = 0, count = 0;
 
 	while (*format)
 	{
@@ -42,42 +39,28 @@ int _vprintf(const char *format, va_list ap)
 			if (*format == '%')
 				flag = 1;
 			else
-			{
-				putchar(*format);
+				_putchar(*format);
 				count++;
-			}
 		}
 		else
 		{
 			switch (*format)
 			{
 				case 'c':
-				{
-					putchar(va_arg(ap, int));
-					count++;
+					case_c(count, ap);
 					break;
-				}
 				case 's':
-				{
-					str = va_arg(ap, char *);
-					print_string(str);
-					count++;
+					case_s(count, ap);
 					break;
-				}
 				case '%':
-					putchar('%');
-					count++;
+					case_percent(count);
 					break;
 				case 'd':
-				{
-					int n = va_arg(ap, int);
-
-					number_to_string(n, 10, buffer);
-					print_string(buffer);
-					count++;
+					case_d(count, ap);
 					break;
-				}
-
+				case 'i':
+					case_d(count, ap);
+					break;
 				default:
 					break;
 			}
@@ -87,4 +70,3 @@ int _vprintf(const char *format, va_list ap)
 	}
 	return (count);
 }
-
