@@ -12,7 +12,8 @@ void case_s(int count, va_list ap);
 int _putchar(char c);
 int _vprintf(const char *format, va_list ap);
 void number_to_string(int number, int base, char *buf);
-void print_string(char *s);int _vprintf(const char *format, va_list ap);
+void print_string(char *s);
+int _vprintf(const char *format, va_list ap);
 void number_to_string(int number, int base, char *buf);
 void print_string(char *s);
 
