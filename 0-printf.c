@@ -39,8 +39,10 @@ int _vprintf(const char *format, va_list ap)
 			if (*format == '%')
 				flag = 1;
 			else
+			{
 				_putchar(*format);
-				count++;
+			}
+			count++;
 		}
 		else
 		{
