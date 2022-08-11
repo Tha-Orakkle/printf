@@ -36,6 +36,7 @@ int _vprintf(const char *format, va_list ap)
 	{
 		if (flag == 0)
 		{
+			count++;
 			if (*format == '%')
 			{
 				flag = 1;
