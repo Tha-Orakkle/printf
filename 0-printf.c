@@ -42,7 +42,7 @@ int _vprintf(const char *format, va_list ap)
 			{
 				_putchar(*format);
 			}
-			count++;
+		count++;
 		}
 		else
 		{
