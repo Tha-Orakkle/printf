@@ -30,7 +30,7 @@ int _printf(const char *format, ...)
 
 int _vprintf(const char *format, va_list ap)
 {
-	int flag = 0, count = 0;
+	int flag = 0, count = 0, i;
 
 	while (*format)
 	{
@@ -64,7 +64,11 @@ int _vprintf(const char *format, va_list ap)
 					case_d(count, ap);
 					break;
 				default:
-					break;
+				{
+					_putchar('%');
+					for (i = 0; format[i] && format[i] != '\n'; i++)
+						_putchar(format[i++]);
+				}
 			}
 			flag = 0;
 		}
